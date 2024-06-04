@@ -1,20 +1,38 @@
+import { SafeAreaView, View } from 'react-native';
+import { useState } from 'react';
+import { ActivityIndicator } from 'react-native-paper';
+import styles from './src/constants/styles';
+import toxicityTest from './src/lib/toxicity';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import ToxicityIndicator from './src/components/ToxicityIndicator';
+import StyledInputText from './src/components/StyledInputText';
+import StyledButton from './src/components/StyledButton';
+import { FlatList } from 'react-native';
+
 
 export default function App() {
+  let [isLoading, setIsLoading] = useState(false)
+
+  const teste = async () => {
+      const response = await toxicityTest("you suck")
+      setIsLoading(false)  
+      console.log(response);
+  }; 
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    isLoading ? 
+    <SafeAreaView style={{width: "100%", height: "100%", justifyContent: "center"}}> 
+    <ActivityIndicator size='large' />
+    </SafeAreaView>
+    
+    :
+
+    <SafeAreaView style={styles.container}> 
+        <StatusBar style='light'/>
+        <ToxicityIndicator/>
+        <FlatList style={styles.list}></FlatList>
+        <StyledInputText placeholder="Digite aqui..."/>
+        <StyledButton children="Verificar"/>
+    </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
