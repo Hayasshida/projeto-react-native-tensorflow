@@ -1,6 +1,6 @@
 import { KeyboardAvoidingView, SafeAreaView, View, FlatList } from 'react-native';
 import { useState } from 'react';
-import { ActivityIndicator, Text } from 'react-native-paper';
+import { ActivityIndicator, Text, Card } from 'react-native-paper';
 import { StatusBar } from 'expo-status-bar';
 import styles from './src/constants/styles';
 import toxicityTest from './src/lib/toxicity';
@@ -32,10 +32,23 @@ export default function App() {
           <TextWhite children={`${i18n.t("nonToxicity")}`} size={48} weight="bold"/>
         }
         {isLoading && <View style={styles.load}><ActivityIndicator size="large" color="#99272d" /></View>}
-        <FlatList style={styles.list}/>
+        <FlatList
+        style={styles.list}
+        data={history}
+        renderItem={({ item }) => (
+          <Card style={styles.card}>
+            <Card.Content>
+              <View style={styles.item}>
+                <TextWhite children={item} color="black" size={20} />
+              </View>
+            </Card.Content>
+          </Card>
+        )}
+      />
         <KeyboardAvoidingView enabled behavior="position">
           <StyledInputText placeholder="Digite aqui..." onChangeText={setText} value={text}/>
-          <StyledButton disabled={text === "" ? true : false } children="Verificar" onPress={() => {classify(text, printText); setIsLoading(true)}}/>
+          <StyledButton disabled={text === "" ? true : false } children="Verificar" onPress={() => {classify(text, printText); setIsLoading(true); setHistory([...history, text]); 
+            setText("")}}/>
         </KeyboardAvoidingView>
     </SafeAreaView>
   );

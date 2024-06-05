@@ -27,6 +27,11 @@ const styles = StyleSheet.create({
     size: 48,
     fontWeight: "bold",
   },
+  card: {
+    marginVertical: 10,
+    backgroundColor: "white",
+    elevation: 4,   
+},
 });
 
 export default styles;

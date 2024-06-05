@@ -5,6 +5,11 @@ import { View } from "react-native";
 export default function ToxicityIndicator(props){
     const [text, setText] = useState("Verifique a agressividade de seu texto");
     
+    // if(){
+        
+    // }else{
+        
+    // }
 
     return (
         <View>
