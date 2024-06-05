@@ -11,10 +11,17 @@ const styles = StyleSheet.create({
         gap: height*0.013,
     },
     list: {
-        backgroundColor: "white",
         height: height*0.4,
         width: width*0.9,
         flexGrow: 0
+    },
+    load: {
+        height: height,
+        width: width,
+        backgroundColor: "#00000050",
+        justifyContent: "center",
+        zIndex: 1,
+        position: "absolute",
     }
 });
 

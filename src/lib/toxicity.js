@@ -16,7 +16,10 @@ const toxicityTest = async (sentence) => {
       
       for (let i = 0; i < predictions.length; i++) {
         if (predictions[i].results[0].match) {
-          negativeMatches[negativeMatches.length] = predictions[i].label;
+          negativeMatches[negativeMatches.length] = {
+            label: predictions[i].label,
+            porcentagem: predictions[i].results[0].probabilities[1].toFixed(3)
+          };
         } else if (
           predictions[i].results[0].probabilities[0] >
           predictions[i].results[0].probabilities[1]
@@ -24,12 +27,15 @@ const toxicityTest = async (sentence) => {
           predictions[i].results[0].match = false;
         } else {
           predictions[i].results[0].match = true;
-          negativeMatches[negativeMatches.length] = predictions[i].label;
-        }
+          negativeMatches[negativeMatches.length] = {
+            label: predictions[i].label,
+            porcentagem: predictions[i].results[0].probabilities[1].toFixed(3)
+        };
       }
-    });
+      }});
   });
 
+  negativeMatches.sort((a,b) => b.porcentagem - a.porcentagem)
   return negativeMatches;
 };
 
