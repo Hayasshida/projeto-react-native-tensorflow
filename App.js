@@ -8,7 +8,7 @@ import StyledInputText from "./src/components/StyledInputText";
 import StyledButton from "./src/components/StyledButton";
 import TextWhite from "./src/components/TextWhite";
 import i18n from "./src/constants/i18n";
-import { width, height } from "./src/constants/measures";
+import { width } from "./src/constants/measures";
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(false);

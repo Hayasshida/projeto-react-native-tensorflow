@@ -1,5 +1,4 @@
 import { Text } from "react-native-paper";
-import { width } from "../../constants/measures";
 
 export default function TextWhite(props) {
   return (
