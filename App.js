@@ -1,15 +1,13 @@
-import { KeyboardAvoidingView, SafeAreaView, View } from 'react-native';
+import { KeyboardAvoidingView, SafeAreaView, View, FlatList } from 'react-native';
 import { useState } from 'react';
 import { ActivityIndicator, Text } from 'react-native-paper';
+import { StatusBar } from 'expo-status-bar';
 import styles from './src/constants/styles';
 import toxicityTest from './src/lib/toxicity';
-import { StatusBar } from 'expo-status-bar';
-import ToxicityIndicator from './src/components/ToxicityIndicator';
 import StyledInputText from './src/components/StyledInputText';
 import StyledButton from './src/components/StyledButton';
-import { FlatList } from 'react-native';
 import TextWhite from './src/components/TextWhite';
-
+import i18n from './src/constants/i18n';
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(false)
@@ -27,13 +25,12 @@ export default function App() {
         <StatusBar style='light'/>
         {printText === '' 
         ? 
-          <TextWhite children="Verifique a agressividade de seu texto" size={48} weight="bold"/>
+          <TextWhite children={i18n.t("title")} size={48} weight="bold"/>
         : printText !== 'nothing' ?
-          <TextWhite children={`Seu texto contém ${printText}`} size={48} weight="bold"/>
+          <TextWhite children={`${i18n.t("titleWithToxicity")} ${i18n.t(`${printText}`)}`} size={48} weight="bold"/>
         :
-          <TextWhite children={`Seu texto não contém toxicidade`} size={48} weight="bold"/>
+          <TextWhite children={`${i18n.t("nonToxicity")}`} size={48} weight="bold"/>
         }
-        {/* <ToxicityIndicator/> */}
         {isLoading && <View style={styles.load}><ActivityIndicator size="large" color="#99272d" /></View>}
         <FlatList style={styles.list}/>
         <KeyboardAvoidingView enabled behavior="position">
