@@ -13,7 +13,12 @@ export default function StyledInputText(props){
                     borderBottomRightRadius: 28, 
                     height: height*0.1, 
                     backgroundColor: "#280d3e", 
-                    width: width*0.9 
+                    width: width*0.9,
+                    elevation: 3,
+                    shadowColor: '#000',
+                    shadowOffset: { width: 0, height: 2 }, 
+                    shadowOpacity: 0.25, 
+                    shadowRadius: 3.84, 
                 }} 
             underlineStyle={{borderRadius: 100}} 
             activeUnderlineColor="transparent" 
@@ -22,6 +27,7 @@ export default function StyledInputText(props){
             placeholder={props.placeholder}
             onChangeText={props.onChangeText}
             value={props.value}
+            maxLength={48}
         />
     );
 }

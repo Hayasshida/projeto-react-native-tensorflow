@@ -11,6 +11,7 @@ export default function StyledButton(props){
             style={{height: height*0.07, width: width*0.9 , borderRadius: 100, justifyContent: "center"}} 
             children={props.children}
             disabled={props.disabled}
+            theme={{colors: {onSurfaceDisabled: "#ffffff33", surfaceDisabled: "#99272d80"}}}
         />
     )
 }

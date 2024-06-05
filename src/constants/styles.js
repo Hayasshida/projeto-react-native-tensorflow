@@ -7,11 +7,11 @@ const styles = StyleSheet.create({
     width: width,
     height: height,
     alignItems: "center",
-    paddingTop: height * 0.15,
+    paddingVertical: height * 0.06,
     gap: height * 0.013,
   },
   list: {
-    height: height * 0.4,
+    height: height * 0.52,
     width: width * 0.9,
     flexGrow: 0,
   },
@@ -22,10 +22,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     zIndex: 1,
     position: "absolute",
-  },
-  title: {
-    size: 48,
-    fontWeight: "bold",
   },
   card: {
     marginVertical: 10,
