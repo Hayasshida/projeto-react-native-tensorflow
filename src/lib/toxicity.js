@@ -3,13 +3,12 @@ const toxicity = require('@tensorflow-models/toxicity');
 import * as tf from '@tensorflow/tfjs';
 import '@tensorflow/tfjs-react-native'
 
-const toxicityTest = async (sentence) => {
+const toxicityTest = async (sentence, printText) => {
   const threshold = 0.75;
   const negativeMatches = [];
 
   await tf.setBackend('rn-webgl')
   await tf.ready()
-  console.log("tf is ready!!!")
 
   await toxicity.load(threshold).then(async (model) => {
      await model.classify(sentence).then((predictions) => {
@@ -18,7 +17,7 @@ const toxicityTest = async (sentence) => {
         if (predictions[i].results[0].match) {
           negativeMatches[negativeMatches.length] = {
             label: predictions[i].label,
-            porcentagem: predictions[i].results[0].probabilities[1].toFixed(3)
+            probabilidade: predictions[i].results[0].probabilities[1].toFixed(3)
           };
         } else if (
           predictions[i].results[0].probabilities[0] >
@@ -29,14 +28,29 @@ const toxicityTest = async (sentence) => {
           predictions[i].results[0].match = true;
           negativeMatches[negativeMatches.length] = {
             label: predictions[i].label,
-            porcentagem: predictions[i].results[0].probabilities[1].toFixed(3)
+            probabilidade: predictions[i].results[0].probabilities[1].toFixed(3)
         };
       }
       }});
   });
 
-  negativeMatches.sort((a,b) => b.porcentagem - a.porcentagem)
-  return negativeMatches;
+  if(negativeMatches[0] !== undefined){
+    negativeMatches.sort((a,b) => b.probabilidade - a.probabilidade);
+  }
+
+    if(negativeMatches[0] === undefined){
+      printText = 'nothing'
+      return({
+        negativeMatches: negativeMatches,
+        printText: 'nothing',
+      });
+    }else{
+      printText = negativeMatches[0].label
+      return({
+        negativeMatches: negativeMatches,
+        printText: printText,
+      });
+    }
 };
 
 export default toxicityTest;
