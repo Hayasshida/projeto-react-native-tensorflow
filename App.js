@@ -9,6 +9,7 @@ import StyledButton from "./src/components/StyledButton";
 import TextWhite from "./src/components/TextWhite";
 import i18n from "./src/constants/i18n";
 import { width } from "./src/constants/measures";
+import { ProviderTypes, TranslatorConfiguration, TranslatorFactory } from 'react-native-power-translator';
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(false);
@@ -16,10 +17,16 @@ export default function App() {
   const [history, setHistory] = useState([]);
   const [printText, setPrintText] = useState("");
 
+  TranslatorConfiguration.setConfig(ProviderTypes.Google, 'AIzaSyBft-XRjNxlY4mMc2l6HqcodQsgJx7YzCA','en');
+  const translator = TranslatorFactory.createTranslator();
+
   const classify = async (text, printText) => {
-    const response = await toxicityTest(text, printText);
-    setPrintText(response.printText);
-    setIsLoading(false);
+    translator.translate(text).then(async(translated) => {
+      text = translated;
+      const response = await toxicityTest(text, printText)
+      setPrintText(response.printText);
+      setIsLoading(false);
+    });
   };
 
   return (
