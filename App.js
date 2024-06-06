@@ -17,7 +17,7 @@ export default function App() {
   const [history, setHistory] = useState([]);
   const [printText, setPrintText] = useState("");
 
-  TranslatorConfiguration.setConfig(ProviderTypes.Google, 'AIzaSyBft-XRjNxlY4mMc2l6HqcodQsgJx7YzCA','en');
+  TranslatorConfiguration.setConfig(ProviderTypes.Google, '','en');
   const translator = TranslatorFactory.createTranslator();
 
   const classify = async (text, printText) => {
